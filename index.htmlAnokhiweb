@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#800080">
+<title>Anokhi | Everyday Style</title>
+<style>
+:root {
+  --bg: #fffff;
+  --panel: #800080;
+  --text: #f8f5f0;
+  --muted: #aaa;
+  --accent: #e3a36d;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+.top {
+  background: #ffffff;
+  color: #800080;
+  text-align: center;
+  padding: 9px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+header {
+  padding: 19px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #333;
+}
+.logo { font-size: 21px; font-weight: 900; letter-spacing: 2px; }
+.logo span { color: var(--accent); }
+header button, .outline {
+  background: transparent;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 7px;
+  padding: 10px 13px;
+}
+.hero {
+  padding: 65px 6% 55px;
+  background: linear-gradient(110deg,#211b17,#111 70%);
+}
+.eyebrow {
+  color: var(--accent);
+  letter-spacing: 3px;
+  font-size: 11px;
+  font-weight: bold;
+}
+h1 { font-size: clamp(38px,8vw,66px); line-height: 1.05; margin: 18px 0; }
+h1 span { color: var(--accent); }
+.hero p { color: #c1bbb5; line-height: 1.7; max-width: 440px; }
+.primary {
+  background: var(--accent);
+  color: #17110c;
+  border: 0;
+  border-radius: 6px;
+  padding: 13px 20px;
+  font-weight: bold;
+  margin-top: 12px;
+}
+section { padding: 38px 5%; }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+h2 { margin: 0; font-size: 25px; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filters button {
+  border: 1px solid #444;
+  background: transparent;
+  color: #ddd;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+.filters button.active {
+  background: var(--accent);
+  color: #17110c;
+  border-color: var(--accent);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 13px;
+}
+.product {
+  background: var(--panel);
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 0;
+}
+.product img {
+  width: 100%;
+  aspect-ratio: 3 / 3.6;
+  object-fit: cover;
+  display: block;
+  background: #ffffff;
+}
+.details { padding: 12px; } .tag { color: var(--accent); font-size: 
+10px; text-transform: uppercase; } .details h3 { font-size: 14px; 
+margin: 8px 0; } .price { font-size: 17px; font-weight: bold; } .old 
+{ color: #999; font-size: 12px; text-decoration: line-through; 
+margin-left: 5px; } .add {
+  width: 100%; margin-top: 12px; padding: 11px 4px; background: 
+  transparent; border: 1px solid var(--accent); border-radius: 6px; 
+  color: var(--accent);
+}
+.add:active { background: #38271a; } .benefits { display: grid; 
+  grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px;
+}
+.benefit { padding: 18px; border: 1px solid #333; border-radius: 9px;
+}
+.benefit p { color: var(--muted); font-size: 13px; line-height: 1.5; 
+}
+footer { padding: 30px 5%; border-top: 1px solid #333; color: 
+  var(--muted); font-size: 12px; text-align: center; line-height: 
+  1.8;
+}
+#cartPanel {
+  display: none; position: fixed; inset: 0; background: #000a; 
+  z-index: 5;
+}
+#cartPanel.open { display: block; }
+.cart { position: absolute; right: 0; top: 0; height: 100%; width: 
+  min(100%,420px); background: #800080; padding: 22px; overflow: 
+  auto;
+}
+.cart-head { display: flex; justify-content: space-between; 
+  align-items: center;
+}
+.cart-row { display: flex; gap: 12px; align-items: center; padding: 
+  14px 0; border-bottom: 1px solid #333;
+}
+.cart-row img { width: 60px; height: 70px; object-fit: cover; 
+  border-radius: 6px;
+}
+.cart-row .info { flex: 1; font-size: 13px; } .qty { display: flex; 
+align-items: center; gap: 9px; margin-top: 8px; } .qty button {
+  background: #333; color: white; border: 0; padding: 5px 9px;
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin: 22px 0;
+  font-size: 19px;
+}
+#checkout {
+  display: block;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  background: #25d366;
+  color: #071c0e;
+  padding: 14px;
+  border-radius: 7px;
+  font-weight: bold;
+}
+.note { color: #aaa; font-size: 12px; line-height: 1.6; }
+@media(min-width:700px) {
+  .grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; }
+  .hero { padding: 95px 10%; }
+  .benefits { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  section { padding: 55px 7%; }
+}
+</style>
+</head>
+<body>
+<div class="top">NEW SEASON • NEW STYLE • EVERYDAY PRICES</div>
+
+<header>
+  <div class="logo">FASHION<span>STORE.</span></div>
+  <button onclick="openCart()">🛍 Cart (<span id="count">0</span>)</button>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="eyebrow">YOUR STYLE. YOUR STORY.</div>
+    <h1>Wear Your<br><span>Confidence.</span></h1>
+    <p>Discover your next favourite look. Shop everyday essentials and statement styles made for you.</p>
+    <button class="primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">SHOP COLLECTION ↓</button>
+  </div>
+
+  <section id="shop">
+    <div class="section-head">
+      <h2>Our Collection</h2>
+      <div class="filters" id="filters">
+        <button class="active" data-cat="All">All</button>
+        <button data-cat="Men">Men</button>
+        <button data-cat="Women">Women</button>
+        <button data-cat="Accessories">Accessories</button>
+      </div>
+    </div>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>Shopping Made Simple</h2></div>
+    <div class="benefits">
+      <div class="benefit">🚚 <b>Easy Ordering</b><p>Place your order directly through WhatsApp.</p></div>
+      <div class="benefit">✨ <b>Fresh Styles</b><p>Discover new looks for everyday wear.</p></div>
+      <div class="benefit">💬 <b>Personal Support</b><p>Contact us to ask about sizes and availability.</p></div>
+      <div class="benefit">🔒 <b>Order Confirmation</b><p>Confirm your order details with the seller.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <b>FASHIONSTORE.</b><br>
+  Find your style. Make it yours.<br>
+  © <span id="year"></span> Fashion Store. All rights reserved.
+</footer>
+
+<div id="cartPanel" onclick="if(event.target===this)closeCart()">
+  <div class="cart">
+    <div class="cart-head">
+      <h2>Your Cart</h2>
+      <button class="outline" onclick="closeCart()">✕ Close</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="total"><span>Total</span><b id="total">₹0</b></div>
+    <a id="checkout" href="#" onclick="return checkout()">Order on WhatsApp</a>
+    <p class="note">Your order is not complete until the seller confirms it. Delivery charges and payment details must be agreed with the seller.</p>
+  </div>
+</div>
+
+<script>
+const products = [
+  {id:1,name:"Classic Black Tee",cat:"Men",price:299,old:499,tag:"Bestseller",img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"},
+  {id:2,name:"Everyday Hoodie",cat:"Men",price:799,old:1199,tag:"Streetwear",img:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"},
+  {id:3,name:"Minimal Shirt",cat:"Men",price:599,old:899,tag:"New arrival",img:"https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80"},
+  {id:4,name:"Elegant Outfit",cat:"Women",price:899,old:1299,tag:"Trending",img:"https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80"},
+  {id:5,name:"Casual Fashion",cat:"Women",price:699,old:999,tag:"Everyday wear",img:"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80"},
+  {id:6,name:"Classic Sneakers",cat:"Men",price:999,old:1499,tag:"Popular",img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"},
+  {id:7,name:"Stylish Bag",cat:"Accessories",price:499,old:799,tag:"Must-have",img:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80"},
+  {id:8,name:"Everyday Watch",cat:"Accessories",price:649,old:999,tag:"Timeless",img:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=600&q=80"}
+];
+
+let cart = {};
+try {
+  cart = JSON.parse(localStorage.getItem("fashionCart") || "{}");
+  if (!cart || typeof cart !== "object" || Array.isArray(cart)) cart = {};
+} catch(e) { cart = {}; }
+
+const money = n => "₹" + n.toLocaleString("en-IN");
+
+function renderProducts(category="All") {
+  const list = products.filter(p => category==="All" || p.cat===category);
+  document.getElementById("products").innerHTML = list.map(p => `
+    <article class="product">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      <div class="details">
+        <div class="tag">${p.tag}</div>
+        <h3>${p.name}</h3>
+        <div class="price">${money(p.price)} <span class="old">${money(p.old)}</span></div>
+        <button class="add" onclick="addToCart(${p.id})">＋ Add to Cart</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+document.getElementById("filters").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-cat]");
+  if (!btn) return;
+  document.querySelectorAll("#filters button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderProducts(btn.dataset.cat);
+});
+
+function saveCart() {
+  try { localStorage.setItem("fashionCart", JSON.stringify(cart)); }
+  catch(e) {}
+}
+
+function addToCart(id) {
+  cart[id] = (Number(cart[id]) || 0) + 1;
+  saveCart();
+  renderCart();
+  openCart();
+}
+
+function changeQty(id, amount) {
+  cart[id] = (Number(cart[id]) || 0) + amount;
+  if (cart[id] <= 0) delete cart[id];
+  saveCart();
+  renderCart();
+}
+
+function renderCart() {
+  const items = products.filter(p => Number(cart[p.id]) > 0);
+  const count = items.reduce((sum,p) => sum + Number(cart[p.id]), 0);
+  const total = items.reduce((sum,p) => sum + p.price * Number(cart[p.id]), 0);
+  document.getElementById("count").textContent = count;
+  document.getElementById("total").textContent = money(total);
+
+  document.getElementById("cartItems").innerHTML = items.length
+    ? items.map(p => `
+      <div class="cart-row">
+        <img src="${p.img}" alt="">
+        <div class="info">
+          <b>${p.name}</b><br>${money(p.price)}
+          <div class="qty">
+            <button onclick="changeQty(${p.id},-1)">−</button>
+            <span>${cart[p.id]}</span>
+            <button onclick="changeQty(${p.id},1)">+</button>
+          </div>
+        </div>
+      </div>
+    `).join("")
+    : '<p class="note">Your cart is empty. Add a product to begin.</p>';
+}
+
+function openCart() {
+  document.getElementById("cartPanel").classList.add("open");
+}
+function closeCart() {
+  document.getElementById("cartPanel").classList.remove("open");
+}
+
+function checkout() {
+  const items = products.filter(p => Number(cart[p.id]) > 0);
+  if (!items.length) {
+    alert("Please add a product to your cart first.");
+    return false;
+  }
+
+  // IMPORTANT: Replace with your WhatsApp number, country code included.
+  // India example format: 918454879943 (no +, spaces or dashes).
+  const sellerNumber = "918454879943";
+
+  if (!/^\d{10,15}$/.test(sellerNumber)) {
+    alert("Please set the seller's WhatsApp number in the website code.");
+    return false;
+  }
+
+  const total = items.reduce((sum,p) => sum + p.price * Number(cart[p.id]), 0);
+  const lines = items.map(p => `${p.name} x ${cart[p.id]} = ${money(p.price * Number(cart[p.id]))}`);
+  const message = "Hello! I want to place an order:\n" +
+    lines.join("\n") + "\nTotal: " + money(total) +
+    "\nPlease confirm availability, size, delivery charges and payment options.";
+
+  window.open("https://wa.me/" + sellerNumber + "?text=" + encodeURIComponent(message), "_blank");
+  return false;
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>0
+
